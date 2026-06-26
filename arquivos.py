@@ -2,6 +2,7 @@ import json
 import os
 
 def salvar_chaveamento(dados):
+    
     if not os.path.exists("historico"):
         os.mkdir("historico")
 
@@ -30,8 +31,10 @@ def listar_salvos():
 
     return arquivos
 
-
 def carregar_chaveamento(nome_arquivo):
+    if not nome_arquivo.endswith(".json"):
+        nome_arquivo += ".json"
+
     caminho = f"historico/{nome_arquivo}"
 
     try:
