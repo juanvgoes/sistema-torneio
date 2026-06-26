@@ -21,7 +21,7 @@ def embaralhar_grupos(nomes, tamanho_grupo):
 def exibir_grupos(grupos):
     print('\n=== Grupos Sorteados ===')
     for i, grupo in enumerate(grupos, start=1):
-        print(f'Grupo {i}: {', '.join(grupo)}')
+        print(f'Grupo {i}: {", ".join(grupo)}')
 
 def main():
     nomes = adicionar_nomes()
@@ -30,7 +30,7 @@ def main():
         print('Adicione pelo menos 2 pessoas para formar grupos.')
         return
 
-    print(f'\n{len(nomes)} pessoa(s) adicionadas(s): {', '.join(nomes)}')
+    print(f'\n{len(nomes)} pessoa(s) adicionadas(s): {", ".join(nomes)}')
 
     while True:
         try:
