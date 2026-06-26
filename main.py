@@ -1,3 +1,4 @@
+from equipes import adicionar_nomes, embaralhar_grupos, exibir_grupos
 
 cor_finalizar = '\033[m'
 cor_ciano_negrito = '\033[1;36;38m'
@@ -26,6 +27,26 @@ if __name__ == '__main__':
 
         if opcao == '1':
             print(cor_verde_negrito + 'Você escolheu formar equipes')
+            
+            nomes = adicionar_nomes()
+
+            while True:
+                try:
+                    tamanho = int(input(f'\nQuantas pessoas por grupo? (2 a {len(nomes)}): '))
+                    if 2 <= tamanho <= len(nomes):
+                        break
+                    print('Valor inválido. tente novamente.')
+                except ValueError:
+                    print('Digite um número inteiro.')
+
+            while True:
+                grupos = embaralhar_grupos(nomes, tamanho)
+                exibir_grupos(grupos)
+
+                repetir = input('\nEmbaralhar novamente? (s/n): ').strip().lower()
+                if repetir != 's':
+                    break
+
         elif opcao == '2':
             print(cor_amarelo_negrito + 'Você escolheu gerar chaveamento')
         elif opcao == '3':
@@ -37,4 +58,3 @@ if __name__ == '__main__':
             break
         else:
             print(cor_fundo_vermelho + 'Opção inválida, tente novamente!' + cor_finalizar)
-        
