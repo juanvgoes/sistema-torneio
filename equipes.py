@@ -1,10 +1,22 @@
+cor_finalizar = '\033[m'
+cor_ciano_negrito = '\033[1;36;38m'
+cor_vermelho_negrito = '\033[1;31;38m'
+cor_verde_negrito = '\033[1;32;38m'
+cor_amarelo_negrito = '\033[1;33;38m'
+cor_azul_negrito = '\033[1;34;38m'
+cor_magenta_negrito = '\033[1;35;38m'
+cor_branco_negrito = '\033[1;37;38m'
+cor_fundo_vermelho = '\033[1;31;41m'
+
 import random
 def adicionar_nomes():
     nomes = []
-    print('===sorteador de grupos ===')
-    print('digite os nomes um por um. Deixe em branco e pressione enter para finalizar . \n')
+    print(cor_branco_negrito + '=== sorteador de grupos ===\n' + cor_finalizar)
+    print(f'{cor_ciano_negrito}digite os nomes um por um.')
+    print(f'Deixe em {cor_branco_negrito}branco{cor_ciano_negrito} e pressione enter para finalizar.{cor_finalizar}\n')
     while True:
-        nome = input('nome: ').strip()
+        nome = input('nome: ' + cor_ciano_negrito).strip()
+        print(cor_finalizar, end='')
         if nome == '':
             break
         nomes.append(nome)

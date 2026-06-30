@@ -26,7 +26,7 @@ if __name__ == '__main__':
         opcao = menu()
 
         if opcao == '1':
-            print(cor_verde_negrito + 'Você escolheu formar equipes')
+            print(cor_verde_negrito + 'Você escolheu formar equipes' + cor_finalizar)
             
             nomes = adicionar_nomes()
 

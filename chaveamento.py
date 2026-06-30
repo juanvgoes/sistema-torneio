@@ -1,1 +1,168 @@
-#testando git e github
+import random
+import arquivos
+
+def receber_equipes():
+    equipes = []
+    print('Digite o nome das equipes e deixe em branco para finalizar')
+    while True:
+        nome = input(f'Equipe {len(equipes) + 1} ').strip()
+        if nome == '':
+            if len(equipes) < 2:
+                print('É preciso ter pelo menos 2 equipes')
+                continue
+            break
+        equipes.append(nome)
+    return equipes
+
+def equipe_isenta(equipes):
+    if len(equipes) % 2 != 0:
+        isenta = random.choice(equipes)
+        equipes.remove(isenta)
+        print(f'Como o número de equipes é ímpar. {isenta} passou direto como equipe isenta')
+        return equipes, isenta
+    return equipes, None
+
+def escolher_vencedor(equipe_a, equipe_b):
+    while True:
+        print(f'({equipe_a} X {equipe_b})')
+        opcao = input('Qual das equipes ganhou [1] ou [2]? ')
+        if opcao == '1':
+            return equipe_a
+        elif opcao == '2':
+            return equipe_b
+        else:
+            print('Opção inválida')
+
+def gerar_mata_mata(equipes, salvar=True):
+    rodada = 1
+    historico = []
+
+    while len(equipes) > 1:
+        print(f'Rodada {rodada}')
+
+        equipes, isenta = equipe_isenta(equipes)
+        
+        vencedores = []
+        confrontos_rodada = []
+        for c in range(0, len(equipes), 2):
+            equipe_a = equipes[c]
+            equipe_b = equipes[c + 1]
+            print(f'confronto: {equipe_a} VS {equipe_b}')
+            vencedor = escolher_vencedor(equipe_a, equipe_b)
+            print(f'{vencedor} Avança')
+            vencedores.append(vencedor)
+            confrontos_rodada.append({
+                'equipe_a': equipe_a,
+                'equipe_b': equipe_b,
+                'vencedor': vencedor
+            })
+        if isenta:
+            vencedores.append(isenta)
+
+        historico.append({
+            'rodada': rodada,
+            'confrontos': confrontos_rodada,
+            'isenta': isenta
+        })
+        
+        equipes = vencedores
+        rodada += 1 
+        
+        campeao = equipes[0]
+        print(f'O campeão foi {campeao}')
+
+        if salvar:
+            resultado = {
+                'modalidade': 'mata-mata',
+                'campeão': campeao,
+                'rodadas': historico
+            }
+        arquivos.salvar_chaveamento(resultado)
+
+        return campeao
+    
+def gerar_pontos_corridos(equipes):
+    tabela = {equipe: {'pontos': 0, 'jogos': 0, 'vitorias': 0, 'empates': 0, 'derrotas': 0}
+              for equipe in equipes}
+    historico_jogos = []
+
+    print('Pontos corridos')
+    for i in range(len(equipes)):
+        for j in range(i + 1, len(equipes)):
+            equipe_a = equipes[i]
+            equipe_b = equipes[j]
+
+            print(f"\n  {equipe_a} vs {equipe_b}")
+            print(f"    [1] {equipe_a} venceu")
+            print(f"    [2] {equipe_b} venceu")
+            print(f"    [3] Empate")
+
+            while True:
+                opcao = input("Resultado: ").strip()
+                if opcao in ('1', '2', '3'):
+                    break
+                print("Opção inválida. Digite 1, 2 ou 3.")
+
+            tabela[equipe_a]['jogos'] += 1
+            tabela[equipe_b]['jogos'] += 1
+
+            if opcao == "1":
+                tabela[equipe_a]["pontos"] += 3
+                tabela[equipe_a]["vitorias"] += 1
+                tabela[equipe_b]["derrotas"] += 1
+                res = equipe_a
+            elif opcao == "2":
+                tabela[equipe_b]["pontos"] += 3
+                tabela[equipe_b]["vitorias"] += 1
+                tabela[equipe_a]["derrotas"] += 1
+                res = equipe_b
+            else:
+                tabela[equipe_a]["pontos"] += 1
+                tabela[equipe_b]["pontos"] += 1
+                tabela[equipe_a]["empates"] += 1
+                tabela[equipe_b]["empates"] += 1
+                res = "empate"
+
+            historico_jogos.append({
+                "equipe_a": equipe_a,
+                "equipe_b": equipe_b,
+                "resultado": res
+            })
+
+        classificacao = sorted(tabela.items(), key=lambda x: x[1]['pontos'], reverse=True)
+
+        print(f'Classificação final')
+        print(f"  {'Pos':<4} {'Equipe':<20} {'Pts':<5} {'J':<4} {'V':<4} {'E':<4} {'D':<4}")
+        for pos, (equipe, status) in enumerate(classificacao, start=1):
+            print(f"  {pos:<4} {equipe:<20} {status['pontos']:<5} {status['jogos']:<4} "
+            f"{status['vitorias']:<4} {status['empates']:<4} {status['derrotas']:<4}")
+
+        campeao = classificacao[0][0]
+        print(f'O campeão foi {campeao}')
+
+        resultado = {
+        "modalidade": "pontos-corridos",
+        "campeao": campeao,
+        "tabela": tabela,
+        "jogos": historico_jogos
+    }
+    arquivos.salvar_chaveamento(resultado)
+ 
+    return classificacao
+
+if __name__ == "__main__":
+    # Teste rápido — rode diretamente para testar cada função
+    print("Escolha um modo para testar:")
+    print("[1] Mata-mata")
+    print("[2] Pontos corridos")
+    print("[3] Fase de grupos")
+    modo = input("Modo: ").strip()
+ 
+    equipes = receber_equipes()
+ 
+    if modo == "1":
+        gerar_mata_mata(equipes)
+    elif modo == "2":
+        gerar_pontos_corridos(equipes)
+    elif modo == "3":
+        gerar_fase_grupos(equipes)
