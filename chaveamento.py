@@ -81,75 +81,6 @@ def gerar_mata_mata(equipes, salvar=True):
 
     return campeao
     
-def gerar_pontos_corridos(equipes):
-    tabela = {equipe: {'pontos': 0, 'jogos': 0, 'vitorias': 0, 'empates': 0, 'derrotas': 0}
-              for equipe in equipes}
-    historico_jogos = []
-
-    print('Pontos corridos')
-    for i in range(len(equipes)):
-        for j in range(i + 1, len(equipes)):
-            equipe_a = equipes[i]
-            equipe_b = equipes[j]
-
-            print(f'\n  {equipe_a} vs {equipe_b}')
-            print(f'    [1] {equipe_a} venceu')
-            print(f'    [2] {equipe_b} venceu')
-            print(f'    [3] Empate')
-
-            while True:
-                opcao = input("Resultado: ").strip()
-                if opcao in ('1', '2', '3'):
-                    break
-                print("Opção inválida. Digite 1, 2 ou 3.")
-
-            tabela[equipe_a]['jogos'] += 1
-            tabela[equipe_b]['jogos'] += 1
-
-            if opcao == "1":
-                tabela[equipe_a]['pontos'] += 3
-                tabela[equipe_a]['vitorias'] += 1
-                tabela[equipe_b]['derrotas'] += 1
-                res = equipe_a
-            elif opcao == "2":
-                tabela[equipe_b]['pontos'] += 3
-                tabela[equipe_b]['vitorias'] += 1
-                tabela[equipe_a]['derrotas'] += 1
-                res = equipe_b
-            else:
-                tabela[equipe_a]['pontos'] += 1
-                tabela[equipe_b]['pontos'] += 1
-                tabela[equipe_a]['empates'] += 1
-                tabela[equipe_b]['empates'] += 1
-                res = 'empate'
-
-            historico_jogos.append({
-                'equipe_a': equipe_a,
-                'equipe_b': equipe_b,
-                'resultado': res
-            })
-
-    classificacao = sorted(tabela.items(), key=lambda x: x[1]['pontos'], reverse=True)
-
-    print(f'Classificação final')
-    print(f"  {'Pos':<4} {'Equipe':<20} {'Pts':<5} {'J':<4} {'V':<4} {'E':<4} {'D':<4}")
-    for pos, (equipe, status) in enumerate(classificacao, start=1):
-            print(f"  {pos:<4} {equipe:<20} {status['pontos']:<5} {status['jogos']:<4} "
-            f"{status['vitorias']:<4} {status['empates']:<4} {status['derrotas']:<4}")
-
-    campeao = classificacao[0][0]
-    print(f'O campeão foi {campeao}')
-
-    resultado = {
-    'modalidade': 'pontos-corridos',
-    'campeao': campeao,
-    'tabela': tabela,
-    'jogos': historico_jogos
-    }
-    arquivos.salvar_chaveamento(resultado)
- 
-    return classificacao
-
 def gerar_fase_de_grupos(equipes):
     quantidade_equipes = len(equipes)
 
@@ -192,18 +123,21 @@ def gerar_fase_de_grupos(equipes):
                 print(f'1 para {equipe_a}. 2 para {equipe_b}. 3 empate')
 
                 while True:
-                    opcao = input('Resultado').strip()
+                    opcao = input('Resultado: ').strip()
                     if opcao in ('1', '2', '3'):
                         break
                     else:
                         print('Opção invalida, digite 1, 2 ou 3')
-                
+
+                tabela[equipe_a]['jogos'] += 1  # ← correção 2
+                tabela[equipe_b]['jogos'] += 1  # ← correção 2
+
                 if opcao == '1':
                     tabela[equipe_a]['pontos'] += 3
                     tabela[equipe_a]['vitorias'] += 1
                     tabela[equipe_b]['derrotas'] += 1
                     resultado = equipe_a
-                elif opcao =='2':
+                elif opcao == '2':
                     tabela[equipe_b]['pontos'] += 3
                     tabela[equipe_b]['vitorias'] += 1
                     tabela[equipe_a]['derrotas'] += 1
@@ -217,36 +151,35 @@ def gerar_fase_de_grupos(equipes):
 
                 jogos_grupo.append({'equipe_a': equipe_a, 'equipe_b': equipe_b, 'resultado': resultado})
 
-                classificacao_grupo = sorted(tabela.items(), key=lambda x: x[1]['pontos'], reverse=True)
+        classificacao_grupo = sorted(tabela.items(), key=lambda x: x[1]['pontos'], reverse=True)
 
-                print(f' {'Pos':<4} {'Equipe':<20} {'Pts':<5} {'V':<4} {'E':<4} {'D':<4}')
-                
-                for pos, (equipe, stats) in enumerate(classificacao_grupo, start=1):
-                    marca = " ✓" if pos <= 2 else ""
-                    print(f"  {pos:<4} {equipe:<20} {stats['pontos']:<5} {stats['vitorias']:<4} "
-                    f"{stats['empates']:<4} {stats['derrotas']:<4}{marca}")
- 
-                avancos = min(2, len(classificacao_grupo))
-            classificados_grupo = [classificacao_grupo[i][0] for i in range(avancos)]
-            classificados.extend(classificados_grupo)
- 
-            historico_grupos.append({
-                'grupo': letra,
-                'equipes': grupo,
-                'tabela': tabela,
-                'jogos': jogos_grupo,
-                'classificados': classificados_grupo
-            })
+        print(f" {'Pos':<4} {'Equipe':<20} {'Pts':<5} {'V':<4} {'E':<4} {'D':<4}")
+        for pos, (equipe, stats) in enumerate(classificacao_grupo, start=1):
+            marca = " ✓" if pos <= 2 else ""
+            print(f"  {pos:<4} {equipe:<20} {stats['pontos']:<5} {stats['vitorias']:<4} "
+                  f"{stats['empates']:<4} {stats['derrotas']:<4}{marca}")
+
+        avancos = min(2, len(classificacao_grupo))
+        classificados_grupo = [classificacao_grupo[i][0] for i in range(avancos)]
+        classificados.extend(classificados_grupo)
+
+        historico_grupos.append({
+            'grupo': letra,
+            'equipes': grupo,
+            'tabela': tabela,
+            'jogos': jogos_grupo,
+            'classificados': classificados_grupo
+        })
 
     campeao = gerar_mata_mata(classificados, salvar=False)
- 
+
     resultado = {
         'modalidade': 'fase-de-grupos',
         'campeao': campeao,
         'grupos': historico_grupos
     }
     arquivos.salvar_chaveamento(resultado)
- 
+
     return campeao
 
 
