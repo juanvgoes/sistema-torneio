@@ -1,0 +1,59 @@
+{
+    "modalidade": "mata-mata",
+    "campeão": "Corinthians",
+    "rodadas": [
+        {
+            "rodada": 1,
+            "confrontos": [
+                {
+                    "equipe_a": "Corinthians",
+                    "equipe_b": "Palmeiras",
+                    "vencedor": "Corinthians"
+                },
+                {
+                    "equipe_a": "Flamengo",
+                    "equipe_b": "Botafogo",
+                    "vencedor": "Botafogo"
+                },
+                {
+                    "equipe_a": "Cruzeiro",
+                    "equipe_b": "sport",
+                    "vencedor": "Cruzeiro"
+                },
+                {
+                    "equipe_a": "nautico",
+                    "equipe_b": "santa cruz",
+                    "vencedor": "nautico"
+                }
+            ],
+            "isenta": null
+        },
+        {
+            "rodada": 2,
+            "confrontos": [
+                {
+                    "equipe_a": "Corinthians",
+                    "equipe_b": "Botafogo",
+                    "vencedor": "Corinthians"
+                },
+                {
+                    "equipe_a": "Cruzeiro",
+                    "equipe_b": "nautico",
+                    "vencedor": "nautico"
+                }
+            ],
+            "isenta": null
+        },
+        {
+            "rodada": 3,
+            "confrontos": [
+                {
+                    "equipe_a": "Corinthians",
+                    "equipe_b": "nautico",
+                    "vencedor": "Corinthians"
+                }
+            ],
+            "isenta": null
+        }
+    ]
+}
