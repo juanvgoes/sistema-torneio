@@ -32,27 +32,29 @@ if __name__ == '__main__':
 
             while True:
                 try:
-                    tamanho = int(input(f'\nQuantas pessoas por grupo? (2 a {len(nomes)}): '))
+                    tamanho = int(input(f'\n{cor_verde_negrito}Quantas pessoas por grupo? (2 a {len(nomes)}): {cor_ciano_negrito}'))
+                    print(cor_finalizar)
                     if 2 <= tamanho <= len(nomes):
                         break
-                    print('Valor inválido. tente novamente.')
+                    print(cor_vermelho_negrito + 'Valor inválido. tente novamente.' + cor_finalizar)
                 except ValueError:
-                    print('Digite um número inteiro.')
+                    print(cor_fundo_vermelho + 'Digite um número inteiro.' + cor_finalizar)
 
             while True:
                 grupos = embaralhar_grupos(nomes, tamanho)
                 exibir_grupos(grupos)
 
-                repetir = input('\nEmbaralhar novamente? (s/n): ').strip().lower()
+                repetir = input(f'\n{cor_amarelo_negrito}Embaralhar novamente? (s/n): ').strip().lower()
+                print(cor_finalizar)
                 if repetir != 's':
                     break
 
         elif opcao == '2':
-            print(cor_amarelo_negrito + 'Você escolheu gerar chaveamento')
+            print(cor_amarelo_negrito + 'Você escolheu gerar chaveamento' + cor_finalizar)
         elif opcao == '3':
-            print(cor_azul_negrito + 'Você escolheu formar equipes e gerar chaveamento')
+            print(cor_azul_negrito + 'Você escolheu formar equipes e gerar chaveamento' + cor_finalizar)
         elif opcao == '4':
-            print(cor_magenta_negrito + 'Você escolheu ver o histórico')
+            print(cor_magenta_negrito + 'Você escolheu ver o histórico' + cor_finalizar)
         elif opcao == '5':
             print(cor_vermelho_negrito + 'Saindo...' + cor_finalizar)
             break

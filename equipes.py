@@ -31,10 +31,11 @@ def embaralhar_grupos(nomes, tamanho_grupo):
     return grupos
 
 def exibir_grupos(grupos):
-    print('\n=== Grupos Sorteados ===')
+    print(cor_ciano_negrito + '\n=== Grupos Sorteados ===' + cor_finalizar)
     for i, grupo in enumerate(grupos, start=1):
-        print(f'Grupo {i}: {", ".join(grupo)}')
+        print(f'{cor_branco_negrito}Grupo {i}: {", ".join(grupo)} {cor_finalizar}')
 
+#menu apenas para testes
 def main():
     nomes = adicionar_nomes()
 
