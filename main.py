@@ -1,4 +1,5 @@
 from equipes import adicionar_nomes, embaralhar_grupos, exibir_grupos
+from chaveamento import receber_equipes, gerar_fase_de_grupos, gerar_mata_mata, gerar_pontos_corridos
 
 cor_finalizar = '\033[m'
 cor_ciano_negrito = '\033[1;36;38m'
@@ -51,6 +52,28 @@ if __name__ == '__main__':
 
         elif opcao == '2':
             print(cor_amarelo_negrito + 'Você escolheu gerar chaveamento' + cor_finalizar)
+            print('Escolha o modo de chaveamento: ')
+            print('[1] Mata-mata')
+            print('[2] Pontos corridos')
+            print('[3] Fase de grupos')
+            modo = input("Modo: ").strip()
+
+            equipes = receber_equipes()
+
+            while True:
+                if modo == '1':
+                    gerar_mata_mata(equipes)
+                    break
+                elif modo == '2':
+                    gerar_pontos_corridos(equipes)
+                    break
+                elif modo == '3':
+                    gerar_fase_de_grupos(equipes)
+                    break
+                else:
+                    print('Digite apenas 1, 2 ou 3')
+
+        
         elif opcao == '3':
             print(cor_azul_negrito + 'Você escolheu formar equipes e gerar chaveamento' + cor_finalizar)
         elif opcao == '4':
