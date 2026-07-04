@@ -76,6 +76,53 @@ if __name__ == '__main__':
         
         elif opcao == '3':
             print(cor_azul_negrito + 'Você escolheu formar equipes e gerar chaveamento' + cor_finalizar)
+            
+            nomes = adicionar_nomes()
+
+            while True:
+                try:
+                    tamanho = int(input(f'\n{cor_verde_negrito}Quantas pessoas por grupo? (2 a {len(nomes)}): {cor_ciano_negrito}'))
+                    print(cor_finalizar)
+                    if 2 <= tamanho <= len(nomes):
+                        break
+                    print(cor_vermelho_negrito + 'Valor inválido. tente novamente.' + cor_finalizar)
+                except ValueError:
+                    print(cor_fundo_vermelho + 'Digite um número inteiro.' + cor_finalizar)
+
+            while True:
+                grupos = embaralhar_grupos(nomes, tamanho)
+                exibir_grupos(grupos)
+
+                repetir = input(f'\n{cor_amarelo_negrito}Embaralhar novamente? (s/n): ').strip().lower()
+                print(cor_finalizar)
+                if repetir != 's':
+                    break
+
+            print('Escolha o modo de chaveamento: ')
+            print('[1] Mata-mata')
+            print('[2] Pontos corridos')
+            print('[3] Fase de grupos')
+            modo = input("Modo: ").strip()
+
+            equipes = grupos
+
+            while True:
+                if modo == '1':
+                    gerar_mata_mata(equipes)
+                    break
+                elif modo == '2':
+                    gerar_pontos_corridos(equipes)
+                    break
+                elif modo == '3':
+                    gerar_fase_de_grupos(equipes)
+                    break
+                else:
+                    print('Digite apenas 1, 2 ou 3')
+
+
+
+
+
         elif opcao == '4':
             print(cor_magenta_negrito + 'Você escolheu ver o histórico' + cor_finalizar)
         elif opcao == '5':
