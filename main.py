@@ -1,5 +1,6 @@
 from equipes import adicionar_nomes, embaralhar_grupos, exibir_grupos
 from chaveamento import receber_equipes, gerar_fase_de_grupos, gerar_mata_mata, gerar_pontos_corridos
+from arquivos import listar_salvos, carregar_chaveamento
 
 cor_finalizar = '\033[m'
 cor_ciano_negrito = '\033[1;36;38m'
@@ -119,12 +120,18 @@ if __name__ == '__main__':
                 else:
                     print('Digite apenas 1, 2 ou 3')
 
-
-
-
-
         elif opcao == '4':
             print(cor_magenta_negrito + 'Você escolheu ver o histórico' + cor_finalizar)
+
+            print('Esses são os arquivos salvos: ')
+            listar_salvos()
+
+            arquivo = input('Digite o arquivo que deseja carregar: ')
+            carregar_chaveamento(arquivo)
+
+
+
+
         elif opcao == '5':
             print(cor_vermelho_negrito + 'Saindo...' + cor_finalizar)
             break

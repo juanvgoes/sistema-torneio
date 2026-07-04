@@ -47,3 +47,5 @@ def carregar_chaveamento(nome_arquivo):
     except FileNotFoundError:
         print("Arquivo não encontrado.")
         return None
+
+carregar_chaveamento('teste 2.json')
