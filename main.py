@@ -53,11 +53,12 @@ if __name__ == '__main__':
 
         elif opcao == '2':
             print(cor_amarelo_negrito + 'Você escolheu gerar chaveamento' + cor_finalizar)
-            print('Escolha o modo de chaveamento: ')
-            print('[1] Mata-mata')
-            print('[2] Pontos corridos')
-            print('[3] Fase de grupos')
-            modo = input("Modo: ").strip()
+            print(cor_ciano_negrito + 'Escolha o modo de chaveamento: ' + cor_finalizar)
+            print(f'{cor_ciano_negrito}[{cor_vermelho_negrito}1{cor_ciano_negrito}]{cor_vermelho_negrito} Mata-mata{cor_finalizar}')
+            print(f'{cor_ciano_negrito}[{cor_verde_negrito}2{cor_ciano_negrito}]{cor_verde_negrito} Pontos corridos{cor_finalizar}')
+            print(f'{cor_ciano_negrito}[{cor_azul_negrito}3{cor_ciano_negrito}]{cor_azul_negrito} Fase de grupos{cor_finalizar}')
+            modo = input(f'{cor_amarelo_negrito}Modo: {cor_ciano_negrito}').strip()
+            print(cor_finalizar)
 
             equipes = receber_equipes()
 
