@@ -127,11 +127,14 @@ if __name__ == '__main__':
             print('Esses são os arquivos salvos: ')
             listar_salvos()
 
-            arquivo = input('Digite o arquivo que deseja carregar: ')
-            carregar_chaveamento(arquivo)
+            arquivos = listar_salvos()
 
-
-
+            if len(arquivos) > 0:
+                nome = input("\nDigite o nome do arquivo que deseja carregar: ")
+                dados = carregar_chaveamento(nome)
+                if dados is not None:
+                    print("\nConteúdo do arquivo:")
+                    print(dados)
 
         elif opcao == '5':
             print(cor_vermelho_negrito + 'Saindo...' + cor_finalizar)
