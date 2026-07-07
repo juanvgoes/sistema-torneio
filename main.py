@@ -13,6 +13,7 @@ cor_branco_negrito = '\033[1;37;38m'
 cor_fundo_vermelho = '\033[1;31;41m'
 
 def menu():
+    print(cor_finalizar)
     print(cor_ciano_negrito + '========= Sistema de Torneios =========' + cor_finalizar)
     print(cor_verde_negrito + '1. Formar equipes' + cor_finalizar)
     print(cor_amarelo_negrito + '2. Gerar chaveamento' + cor_finalizar)
@@ -100,14 +101,16 @@ if __name__ == '__main__':
                 if repetir != 's':
                     break
 
-            print('Escolha o modo de chaveamento: ')
-            print('[1] Mata-mata')
-            print('[2] Pontos corridos')
-            print('[3] Fase de grupos')
-            modo = input("Modo: ").strip()
+            print(cor_amarelo_negrito + 'Você escolheu gerar chaveamento' + cor_finalizar)
+            print(cor_ciano_negrito + 'Escolha o modo de chaveamento: ' + cor_finalizar)
+            print(f'{cor_ciano_negrito}[{cor_vermelho_negrito}1{cor_ciano_negrito}]{cor_vermelho_negrito} Mata-mata{cor_finalizar}')
+            print(f'{cor_ciano_negrito}[{cor_verde_negrito}2{cor_ciano_negrito}]{cor_verde_negrito} Pontos corridos{cor_finalizar}')
+            print(f'{cor_ciano_negrito}[{cor_azul_negrito}3{cor_ciano_negrito}]{cor_azul_negrito} Fase de grupos{cor_finalizar}')
+            modo = input(f'{cor_amarelo_negrito}Modo: {cor_ciano_negrito}').strip()
+            print(cor_finalizar)
 
-            equipes = grupos
-
+            equipes = [f"Time {i+1} ({', '.join(g)})" for i, g in enumerate(grupos)]
+            print(cor_branco_negrito)
             while True:
                 if modo == '1':
                     gerar_mata_mata(equipes)
@@ -119,7 +122,7 @@ if __name__ == '__main__':
                     gerar_fase_de_grupos(equipes)
                     break
                 else:
-                    print('Digite apenas 1, 2 ou 3')
+                    print(f'{cor_vermelho_negrito}Digite apenas 1, 2 ou 3')
 
         elif opcao == '4':
             print(cor_magenta_negrito + 'Você escolheu ver o histórico' + cor_finalizar)

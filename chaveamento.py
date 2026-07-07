@@ -1,9 +1,11 @@
 import random
 import arquivos
 
+cor_branco_negrito = '\033[1;37;38m'
+
 def receber_equipes():
     equipes = []
-    print('Digite o nome das equipes e deixe em branco para finalizar')
+    print(cor_branco_negrito + 'Digite o nome das equipes e deixe em branco para finalizar')
     while True:
         nome = input(f'Equipe {len(equipes) + 1} ').strip()
         if nome == '':
