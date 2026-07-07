@@ -125,7 +125,6 @@ if __name__ == '__main__':
             print(cor_magenta_negrito + 'Você escolheu ver o histórico' + cor_finalizar)
 
             print('Esses são os arquivos salvos: ')
-            listar_salvos()
 
             arquivos = listar_salvos()
 
