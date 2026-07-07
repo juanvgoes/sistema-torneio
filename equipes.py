@@ -1,22 +1,14 @@
-cor_finalizar = '\033[m'
-cor_ciano_negrito = '\033[1;36;38m'
-cor_vermelho_negrito = '\033[1;31;38m'
-cor_verde_negrito = '\033[1;32;38m'
-cor_amarelo_negrito = '\033[1;33;38m'
-cor_azul_negrito = '\033[1;34;38m'
-cor_magenta_negrito = '\033[1;35;38m'
-cor_branco_negrito = '\033[1;37;38m'
-cor_fundo_vermelho = '\033[1;31;41m'
-
+import main
 import random
+
 def adicionar_nomes():
     nomes = []
-    print(cor_branco_negrito + '=== sorteador de grupos ===\n' + cor_finalizar)
-    print(f'{cor_ciano_negrito}digite os nomes um por um.')
-    print(f'Deixe em {cor_branco_negrito}branco{cor_ciano_negrito} e pressione enter para finalizar.{cor_finalizar}\n')
+    print(main.cor_branco_negrito + '=== sorteador de grupos ===\n' + main.cor_finalizar)
+    print(f'{main.cor_ciano_negrito}digite os nomes um por um.')
+    print(f'Deixe em {main.cor_branco_negrito}branco{main.cor_ciano_negrito} e pressione enter para finalizar.{main.cor_finalizar}\n')
     while True:
-        nome = input('nome: ' + cor_ciano_negrito).strip()
-        print(cor_finalizar, end='')
+        nome = input('nome: ' + main.cor_ciano_negrito).strip()
+        print(main.cor_finalizar, end='')
         if nome == '':
             break
         nomes.append(nome)
@@ -31,9 +23,9 @@ def embaralhar_grupos(nomes, tamanho_grupo):
     return grupos
 
 def exibir_grupos(grupos):
-    print(cor_ciano_negrito + '\n=== Grupos Sorteados ===' + cor_finalizar)
+    print(main.cor_ciano_negrito + '\n=== Grupos Sorteados ===' + main.cor_finalizar)
     for i, grupo in enumerate(grupos, start=1):
-        print(f'{cor_branco_negrito}Grupo {i}: {", ".join(grupo)} {cor_finalizar}')
+        print(f'{main.cor_branco_negrito}Grupo {i}: {", ".join(grupo)} {main.cor_finalizar}')
 
 #menu apenas para testes
 def main():
